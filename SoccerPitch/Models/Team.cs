@@ -16,10 +16,12 @@ namespace SoccerPitch1.Models
         [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
         public string TeamName { get; set; }
 
+        // Team must have a formation to properly construct view
         [Required]
         [MaxLength(50, ErrorMessage ="Formation cannot exceed 50 characters.")]
         public string Formation { get; set; }
 
+        // Coach name typically inputed by user
         [ValidateNever]
         public string Coach { get; set; } = string.Empty;
 
