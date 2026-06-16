@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace SoccerPitch1.Models
+namespace SoccerPitch.Models
 {
     public class Team
     {
