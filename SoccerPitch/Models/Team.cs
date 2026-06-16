@@ -14,16 +14,14 @@ namespace SoccerPitch1.Models
         // get team name required field
         [Required]
         [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
-        public string TeamName { get; set; } = string.Empty;
+        public string TeamName { get; set; }
 
-        // every team needs a coach to participate this is a required field
         [Required]
-        [MaxLength(100, ErrorMessage = "Coach name cannot exceed 100 characters.")]
-        public string Coach { get; set; } = string.Empty;
+        [MaxLength(50, ErrorMessage ="Formation cannot exceed 50 characters.")]
+        public string Formation { get; set; }
 
-        // formation will be uploaded later by user so validate never
         [ValidateNever]
-        public string Formation { get; set; } = "Standard";
+        public string Coach { get; set; } = string.Empty;
 
         // standing will be automatically generated later on but initially updated by user so validate never
         [ValidateNever]
