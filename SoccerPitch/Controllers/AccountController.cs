@@ -1,12 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SoccerPitch.Data;
 using SoccerPitch.Models;
 
 namespace SoccerPitch.Controllers;
 
 public class AccountController : Controller
 {
-    //TODO: Add context, can't do this since I'm a MacBook user
+    //UPD: added db context
+    private readonly ApplicationDbContext _context;
+    public AccountController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
     [HttpGet]
     // Returns Login view page
     public IActionResult Login()
@@ -33,14 +39,50 @@ public class AccountController : Controller
             return View(user);
         }
         
-        // TODO: Check for existing user, can't do it personally since I can't run migrations on MacBook
+        // UPD, added username and email uniqueness validation
+        if (_context.Users.Any(u => u.Email == user.Email))
+        {
+            ModelState.AddModelError("", "Email is already taken");
+            return View(user);
+        }
+
+        if (_context.Users.Any(u => u.Username == user.Username))
+        {
+            ModelState.AddModelError("", "Username is already taken");
+            return View(user);
+        }
         
         var hasher = new PasswordHasher<User>();
         user.Password = hasher.HashPassword(user, user.Password);
-        //TODO: Save user's hashed password to db instead of plain text
-        
-        return View(user);
+        //UPD added user to db
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return RedirectToAction("Login");
     }
-
-    // TODO: Login post method, can't do it so far since gotta have context to make it actually work
+    
+    // Done login method
+    [HttpPost]
+    public IActionResult Login(string login, string password)
+    {
+        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+        {
+            ModelState.AddModelError("", "Missing login or password");
+            return View();
+        }
+        var user = _context.Users.FirstOrDefault(u => u.Email == login)
+                   ?? _context.Users.FirstOrDefault(u => u.Username == login);
+        if (user == null)
+        {
+                ModelState.AddModelError("", "No user found");
+                return View();
+        }
+        var hasher = new PasswordHasher<User>();
+        var result = hasher.VerifyHashedPassword(user, user.Password, password);
+        if (result == PasswordVerificationResult.Failed)
+        {
+            ModelState.AddModelError("", "Invalid password");
+            return View();
+        }
+        return RedirectToAction("Index", "Home");
+    }
 }
