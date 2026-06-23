@@ -17,11 +17,11 @@ namespace SoccerPitch.Models
         public string TeamName { get; set; } = string.Empty;
 
         // Team will have an ICollection of all its player
-        [Required]
+        [ValidateNever]
         public ICollection<Player> Players { get; set; } = new List<Player>();
 
         // Team will have a "Line Up Slot" arranging players in formation
-        [Required]
+        [ValidateNever]
         public ICollection<LineUpSlot> LineUpSlots { get; set; } = new List<LineUpSlot>();
 
         // standing will be automatically generated later on but initially updated by user so validate never
