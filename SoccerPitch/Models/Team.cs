@@ -14,16 +14,15 @@ namespace SoccerPitch.Models
         // get team name required field
         [Required]
         [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
-        public string TeamName { get; set; }
+        public string TeamName { get; set; } = string.Empty;
 
-        // Team must have a formation to properly construct view
+        // Team will have an ICollection of all its player
         [Required]
-        [MaxLength(50, ErrorMessage ="Formation cannot exceed 50 characters.")]
-        public string Formation { get; set; }
+        public ICollection<Player> Players { get; set; } = new List<Player>();
 
-        // Coach name typically inputed by user
-        [ValidateNever]
-        public string Coach { get; set; } = string.Empty;
+        // Team will have a "Line Up Slot" arranging players in formation
+        [Required]
+        public ICollection<LineUpSlot> LineUpSlots { get; set; } = new List<LineUpSlot>();
 
         // standing will be automatically generated later on but initially updated by user so validate never
         [ValidateNever]
