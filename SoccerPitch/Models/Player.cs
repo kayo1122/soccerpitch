@@ -16,16 +16,16 @@ namespace SoccerPitch.Models
         // required field player name 
         [Required]
         [MaxLength(100, ErrorMessage = "Player name cannot exceed 100 characters.")]
-        public string Name { get; set; }
+        public string PlayerName { get; set; } = string.Empty;
 
         // required position of player for view
         [Required]
         [MaxLength(50, ErrorMessage = "Position cannot exceed 50 characters.")]
-        public string Position { get; set; }
+        public string PreferredPosition { get; set; }
 
-        // Jersey number typically inputed by user
         [ValidateNever]
-        public int JerseyNumber { get; set; } = 0;
+        // Rating inputed by user so validate never
+        public double OverallRating { get; set; } = 0.0;
 
         // Goals typically incremented by user
         [ValidateNever]
@@ -38,6 +38,11 @@ namespace SoccerPitch.Models
         // Foregin key team id 
         [Required]
         public int TeamId { get; set; }
+
+        // Player must have a team name max length 100 char
+        [Required]
+        [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
+        public string TeamName { get; set; } = string.Empty;
 
     }
 }
