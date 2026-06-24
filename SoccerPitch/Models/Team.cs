@@ -16,13 +16,9 @@ namespace SoccerPitch.Models
         [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
         public string TeamName { get; set; } = string.Empty;
 
-        // Team will have an ICollection of all its player
+        // Team will have an ICollection of all its player inputed by user
         [ValidateNever]
         public ICollection<Player> Players { get; set; } = new List<Player>();
-
-        // Team will have a "Line Up Slot" arranging players in formation
-        [ValidateNever]
-        public ICollection<TeamLineUpSlot> LineUpSlots { get; set; } = new List<TeamLineUpSlot>();
 
         // standing will be automatically generated later on but initially updated by user so validate never
         [ValidateNever]

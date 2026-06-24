@@ -21,7 +21,7 @@ namespace SoccerPitch.Models
         // required position of player for view
         [Required]
         [MaxLength(50, ErrorMessage = "Position cannot exceed 50 characters.")]
-        public string PreferredPosition { get; set; }
+        public string PreferredPosition { get; set; } = string.Empty;
 
         [ValidateNever]
         // Rating inputed by user so validate never
