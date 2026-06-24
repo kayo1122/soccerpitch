@@ -22,7 +22,7 @@ namespace SoccerPitch.Models
 
         // Team will have a "Line Up Slot" arranging players in formation
         [ValidateNever]
-        public ICollection<LineUpSlot> LineUpSlots { get; set; } = new List<LineUpSlot>();
+        public ICollection<TeamLineUpSlot> LineUpSlots { get; set; } = new List<TeamLineUpSlot>();
 
         // standing will be automatically generated later on but initially updated by user so validate never
         [ValidateNever]
