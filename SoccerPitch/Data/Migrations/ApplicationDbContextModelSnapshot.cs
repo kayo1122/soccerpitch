@@ -224,6 +224,21 @@ namespace SoccerPitch.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PlayerTeam", b =>
+                {
+                    b.Property<int>("PlayersPlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlayersPlayerId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("PlayerTeam");
+                });
+
             modelBuilder.Entity("SoccerPitch.Models.Player", b =>
                 {
                     b.Property<int>("PlayerId")
@@ -241,21 +256,26 @@ namespace SoccerPitch.Migrations
                     b.Property<string>("JerseyImg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JerseyNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("OverallRating")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Position")
+                    b.Property<string>("PreferredPosition")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TeamName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("PlayerId");
 
@@ -269,15 +289,6 @@ namespace SoccerPitch.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"));
-
-                    b.Property<string>("Coach")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Formation")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Standing")
                         .HasColumnType("int");
@@ -373,6 +384,21 @@ namespace SoccerPitch.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PlayerTeam", b =>
+                {
+                    b.HasOne("SoccerPitch.Models.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoccerPitch.Models.Team", null)
+                        .WithMany()
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -57,12 +57,13 @@ namespace SoccerPitch.Migrations
                     PlayerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     JerseyImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    JerseyNumber = table.Column<int>(type: "int", nullable: false),
+                    PlayerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PreferredPosition = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    OverallRating = table.Column<double>(type: "float", nullable: false),
                     Goals = table.Column<int>(type: "int", nullable: false),
                     Assists = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false)
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    TeamName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,8 +78,6 @@ namespace SoccerPitch.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TeamImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TeamName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Formation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Coach = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Standing = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -208,6 +207,30 @@ namespace SoccerPitch.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PlayerTeam",
+                columns: table => new
+                {
+                    PlayersPlayerId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerTeam", x => new { x.PlayersPlayerId, x.TeamId });
+                    table.ForeignKey(
+                        name: "FK_PlayerTeam_Players_PlayersPlayerId",
+                        column: x => x.PlayersPlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerTeam_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -246,6 +269,11 @@ namespace SoccerPitch.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerTeam_TeamId",
+                table: "PlayerTeam",
+                column: "TeamId");
         }
 
         /// <inheritdoc />
@@ -267,10 +295,7 @@ namespace SoccerPitch.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Players");
-
-            migrationBuilder.DropTable(
-                name: "Teams");
+                name: "PlayerTeam");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -280,6 +305,12 @@ namespace SoccerPitch.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Players");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
         }
     }
 }

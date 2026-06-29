@@ -44,5 +44,7 @@ namespace SoccerPitch.Models
         [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
         public string TeamName { get; set; } = string.Empty;
 
+        public ICollection<Team> Team { get; set; } = new List<Team>();
+
     }
 }
