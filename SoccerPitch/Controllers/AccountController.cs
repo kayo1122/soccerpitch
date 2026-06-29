@@ -83,6 +83,7 @@ public class AccountController : Controller
             ModelState.AddModelError("", "Invalid password");
             return View();
         }
-        return RedirectToAction("Index", "Home");
+        HttpContext.Session.SetString("LoggedInUser", user.Username);
+        return RedirectToAction("Index", "SoccerPitch");
     }
 }

@@ -1,8 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5 welcome-section">
+    <!-- Bubble wrapper layer -->
+    <div class="bubble-bg">
+        <div class="blur"></div>
+    </div>
+
+    <!-- Content Layer -->
+    <!-- custom glass card container -->
+    <div class="glass-card text-center">
+        <h1 class="welcome-title">Welcome</h1>
+        <p class="welcome-lead">Please Login to Continue</p>
+        <hr class="welcome-divider">
+        <div class="button-group">
+            <a class="btn btn-outline-primary btn-lg" href="/Account/Login">Login</a>
+            <a class="btn btn-outline-primary btn-lg" href="/Account/Register">Register</a>
+        </div>
+    </div>
 </div>

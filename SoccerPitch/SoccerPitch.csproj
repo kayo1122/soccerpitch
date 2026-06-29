@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Account\Login\" />
     <Folder Include="Views\Account\Register\" />
-    <Folder Include="Views\SoccerPitch\" />
   </ItemGroup>
 
 </Project>

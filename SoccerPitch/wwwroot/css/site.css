@@ -1,31 +1,101 @@
-html {
-  font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/*All pages*/
 body {
-  margin-bottom: 60px;
+    background-image: url("../images/wcbackground.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+footer {
+    flex-shrink: 0;
+    width: 100%;
+    background-color: transparent;
+    border-color: transparent;
+}
+footer,footer p{
+    color:white;
+}
+    /* HOMEPAGE CSS*/
+    /* Section wrapper layout */
+    .welcome-section {
+        position: relative;
+        padding: 80px 0;
+        z-index: 1;
+    }
+
+/* Background bubble container */
+.bubble-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: visible;
+    pointer-events: none;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.glass-card {
+    position: relative;
+    font-family:"Carter One", system-ui;
+    color:white;
+    z-index: 2;
+    max-width: 800px; /* Limits size to a clean landscape layout */
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-radius: 20px;
+    /* Slightly bright slate-transparency background */
+    background-color: rgb(0, 0, 0, 0.3);
+    /* Frosted glass blurring */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    /* Sharp visible border so card boundaries pop */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Forces clear visibility over the background */
+.welcome-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.welcome-lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #cbd5e1; 
+    margin-bottom: 2rem;
+}
+
+/* Custom divider tint */
+.welcome-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 2rem 0;
+}
+
+/* Aligns the login/register buttons cleanly */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.button-group .btn-outline-primary {
+        background-color: transparent;
+        border-color: white;
+        color: white;
+}
+.button-group .btn:hover {
+        color: #000000;
+        background-color: lightgrey; /* Changes to a light grey on hover */
+}
+/*NAVBAR*/
+.navbar, header nav {
+    background-color: transparent;
+    border-bottom: none;
+    box-shadow: none;
 }
