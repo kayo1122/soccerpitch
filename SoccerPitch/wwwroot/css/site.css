@@ -1,101 +1,146 @@
+/* =========================
+   GLOBAL PAGE LAYOUT
+========================= */
 
-/*All pages*/
+html,
 body {
+    min-height: 100%;
+    margin: 0;
+}
+
+
+.site-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-image: url("../images/wcbackground.jpg");
     background-size: cover;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', sans-serif;
 }
-footer {
-    flex-shrink: 0;
+
+
+/* Main content pushes footer down */
+
+.site-main {
+    flex: 1;
     width: 100%;
-    background-color: transparent;
-    border-color: transparent;
 }
-footer,footer p{
-    color:white;
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: transparent;
+    color: white;
+    flex-shrink: 0;
 }
-    /* HOMEPAGE CSS*/
-    /* Section wrapper layout */
-    .welcome-section {
-        position: relative;
-        padding: 80px 0;
-        z-index: 1;
+
+
+    .footer p {
+        margin: 0;
+        color: white;
     }
 
-/* Background bubble container */
-.bubble-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: visible;
-    pointer-events: none;
+
+    .footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+
+        .footer a:hover {
+            color: #2ecc71;
+        }
+
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar,
+header nav {
+    background: transparent !important;
+    border: none;
+    box-shadow: none;
 }
+
+
+.nav-link {
+    color: white !important;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+
+    .nav-link:hover {
+        color: #2ecc71 !important;
+    }
+
+
+
+/* =========================
+   HOMEPAGE
+========================= */
+
+
+.welcome-section {
+    position: relative;
+    padding: 80px 0;
+}
+
 
 .glass-card {
-    position: relative;
-    font-family:"Carter One", system-ui;
-    color:white;
-    z-index: 2;
-    max-width: 800px; /* Limits size to a clean landscape layout */
+    max-width: 800px;
     margin: 0 auto;
     padding: 4rem 2rem;
-    border-radius: 20px;
-    /* Slightly bright slate-transparency background */
-    background-color: rgb(0, 0, 0, 0.3);
-    /* Frosted glass blurring */
+    background: rgba(0,0,0,0.3);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    /* Sharp visible border so card boundaries pop */
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
 
-/* Forces clear visibility over the background */
+
+
 .welcome-title {
+    font-family: "Carter One", system-ui;
     font-size: 3.5rem;
-    font-weight: 300;
-    color: #ffffff;
-    margin-bottom: 1rem;
+    color: white;
 }
+
+
 
 .welcome-lead {
     font-size: 1.25rem;
-    font-weight: 300;
-    color: #cbd5e1; 
-    margin-bottom: 2rem;
+    color: #cbd5e1;
 }
 
-/* Custom divider tint */
-.welcome-divider {
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    margin: 2rem 0;
-}
 
-/* Aligns the login/register buttons cleanly */
+
 .button-group {
     display: flex;
     justify-content: center;
     gap: 15px;
 }
-.button-group .btn-outline-primary {
-        background-color: transparent;
+
+
+    .button-group .btn-outline-primary {
         border-color: white;
         color: white;
-}
-.button-group .btn:hover {
-        color: #000000;
-        background-color: lightgrey; /* Changes to a light grey on hover */
-}
-/*NAVBAR*/
-.navbar, header nav {
-    background-color: transparent;
-    border-bottom: none;
-    box-shadow: none;
-}
+        background: transparent;
+    }
+
+
+    .button-group .btn:hover {
+        background: lightgrey;
+        color: black;
+    }

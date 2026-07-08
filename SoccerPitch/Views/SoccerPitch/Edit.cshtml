@@ -1,0 +1,80 @@
+﻿@model SoccerPitch.Models.Team
+
+@{
+    ViewData["Title"] = "Edit Team";
+    var players = Model.Players.ToList();
+}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Teams</title>
+    <link rel="stylesheet" href="~/css/edit.css" />
+
+</head>
+<body>
+<div class="edit-page">
+
+<div class="edit-container">
+
+    <h2>Edit Team</h2>
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="TeamId" />
+
+        <!-- TEAM INFORMATION -->
+        <div class="form-group">
+            <label asp-for="TeamName"></label>
+            <input asp-for="TeamName" />
+            <span asp-validation-for="TeamName"></span>
+        </div>
+
+
+        <h3>Players</h3>
+
+
+        <!-- PLAYERS -->
+        @for (int i = 0; i < players.Count; i++)
+        {
+            <div class="player-card-edit">
+
+                <input type="hidden" name="Players[@i].PlayerId" value="@players[i].PlayerId" />
+
+                <div class="form-group">
+                    <label>Player Name</label>
+                    <input name="Players[@i].PlayerName"
+                           value="@players[i].PlayerName" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Position</label>
+                    <input name="Players[@i].PreferredPosition"
+                           value="@players[i].PreferredPosition" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Rating</label>
+                    <input name="Players[@i].OverallRating"
+                           value="@players[i].OverallRating" />
+                </div>
+
+            </div>
+        }
+
+
+        <button type="submit" class="save-btn">
+            Save Changes
+        </button>
+
+        <a asp-action="Index" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+        </div>
+    </div>
+    </body>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SoccerPitch.Models
 {
@@ -35,16 +36,14 @@ namespace SoccerPitch.Models
         [ValidateNever]
         public int Assists { get; set; } = 0;
 
+       
+
         // Foregin key team id 
         [Required]
         public int TeamId { get; set; }
-
-        // Player must have a team name max length 100 char
-        [Required]
-        [MaxLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
-        public string TeamName { get; set; } = string.Empty;
-
-        public ICollection<Team> Team { get; set; } = new List<Team>();
+        [ValidateNever]
+        [JsonIgnore]
+        public Team? Team { get; set; }
 
     }
 }
