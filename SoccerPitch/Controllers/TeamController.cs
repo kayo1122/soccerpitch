@@ -42,6 +42,10 @@ public class TeamController : Controller
     [HttpPost]
     public IActionResult Create(Team team)
     {
+        if (team.Players != null)
+        {
+            team.Players = team.Players.Where(p => !string.IsNullOrWhiteSpace(p.PlayerName)).ToList();
+        }
         // if something is missing then it reloads the page
         if (!ModelState.IsValid)
         {
