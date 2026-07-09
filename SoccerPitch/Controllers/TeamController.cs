@@ -66,6 +66,11 @@ public class TeamController : Controller
     [HttpPost]
     public IActionResult Edit(Team team)
     {
+        if (team.Players != null)
+        {
+            // Filters the collection to keep only players who have a valid name
+            team.Players = team.Players.Where(p => !string.IsNullOrWhiteSpace(p.PlayerName)).ToList();
+        }
         if (ModelState.IsValid)
         {
             _context.Teams.Update(team);
