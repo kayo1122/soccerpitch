@@ -47,19 +47,7 @@ namespace SoccerPitch.Controllers
             return View(team);
         }
 
-        [HttpPost]
-        public IActionResult Edit(Team team)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Teams.Update(team);
-                _context.SaveChanges();
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(team);
-        }
+        
 
 
         // DTO for lineup submission

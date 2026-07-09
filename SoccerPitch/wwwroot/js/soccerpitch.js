@@ -129,11 +129,13 @@ function renderPlayers() {
 /* js for modal buttons */
 function openEditTeamModal() {
     const team = teams[currentTeamIndex];
+
     if (!team) {
         showToast("No team selected.");
         return;
     }
-    new bootstrap.Modal(document.getElementById('editTeamModal-' + team.TeamId)).show();
+
+    window.location.href = `/Team/Edit/${team.TeamId}`;
 }
 
 function openDeleteTeamModal() {
@@ -154,9 +156,6 @@ function setFormation(f) {
     renderSubs();
 }
 /*allows team to be edited */
-function editTeam(teamId) {
-    window.location.href = `/SoccerPitch/Edit/${teamId}`;
-}
 let playerCount = 1;
 
 /*adds new player row in add team button */
