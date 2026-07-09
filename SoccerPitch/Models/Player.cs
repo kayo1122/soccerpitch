@@ -24,7 +24,7 @@ namespace SoccerPitch.Models
         [MaxLength(50, ErrorMessage = "Position cannot exceed 50 characters.")]
         public string PreferredPosition { get; set; } = string.Empty;
 
-        [ValidateNever]
+        [Required]
         // Rating inputed by user so validate never
         public double OverallRating { get; set; } = 0.0;
 
@@ -37,11 +37,10 @@ namespace SoccerPitch.Models
         [JsonIgnore]
         public int Assists { get; set; } = 0;
 
-       
-
         // Foregin key team id 
         [Required]
         public int TeamId { get; set; }
+
         [ValidateNever]
         [JsonIgnore]
         public Team? Team { get; set; }
