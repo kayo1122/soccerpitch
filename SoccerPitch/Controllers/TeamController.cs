@@ -76,4 +76,21 @@ public class TeamController : Controller
 
         return View(team);
     }
+
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var team = _context.Teams
+            .Include(t => t.Players)
+            .FirstOrDefault(t => t.TeamId == id);
+
+        if (team == null)
+        {
+            return NotFound();
+        }
+        _context.Teams.Remove(team);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index", "SoccerPitch");
+    }
 }
