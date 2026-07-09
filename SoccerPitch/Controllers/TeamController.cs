@@ -93,4 +93,31 @@ public class TeamController : Controller
 
         return RedirectToAction("Index", "SoccerPitch");
     }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddPlayer([FromBody] Player player)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        _context.Players.Add(player);
+        await _context.SaveChangesAsync();
+
+        return Json(player);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeletePlayer(int id)
+    {
+        var player = await _context.Players.FindAsync(id);
+        if (player == null) return NotFound();
+
+        _context.Players.Remove(player);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 }

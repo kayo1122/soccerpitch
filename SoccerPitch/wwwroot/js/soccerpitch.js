@@ -123,6 +123,11 @@ function renderPlayers() {
                                 <div class="pos">${p.PreferredPosition}</div>
                             </div>
                             <div class="player-rating">${p.OverallRating > 0 ? p.OverallRating.toFixed(0) : '—'}</div>
+                            <button type="button" class="player-remove-btn"
+                                    title="Remove player"
+                                    onclick="event.stopPropagation(); deletePlayer(${p.PlayerId})">
+                                ✕
+                            </button>
                         </div>`;
     }).join('');
 }
@@ -181,6 +186,106 @@ function addPlayerRow() {
     container.insertAdjacentHTML("beforeend", playerHTML);
     playerCount++;
 
+}
+/* reads the inline add-player inputs, posts to the server, updates the sidebar */
+async function submitAddPlayer() {
+
+    const player = {
+        playerName: document.getElementById("newPlayerName").value,
+        preferredPosition: document.getElementById("newPlayerPosition").value,
+        teamId: 1
+    };
+
+    const response = await fetch("/Team/AddPlayer", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+        },
+        body: JSON.stringify(player)
+    });
+
+    if (response.ok) {
+
+        const newPlayer = await response.json();
+
+        // only add once
+        addPlayerToList(newPlayer);
+
+        // clear inputs
+        document.getElementById("newPlayerName").value = "";
+        document.getElementById("newPlayerPosition").value = "";
+    }
+    else {
+        console.log(await response.text());
+    }
+}
+/*adds player to list */
+function addPlayerToList(player) {
+
+    const playerList = document.getElementById("playerList");
+
+    const playerCard = document.createElement("div");
+    playerCard.classList.add("player-card");
+
+    playerCard.innerHTML = `
+        <div class="player-avatar">
+            ${player.playerName.charAt(0).toUpperCase()}
+        </div>
+
+        <div class="player-info">
+            <div class="name">
+                ${player.playerName}
+            </div>
+
+            <div class="pos">
+                ${player.preferredPosition}
+            </div>
+        </div>
+
+        <div class="player-rating">
+            ${player.overallRating ?? 0}
+        </div>
+
+        <button class="player-remove-btn" onclick="deletePlayer(${player.playerId})">
+            ✕
+        </button>
+    `;
+
+    playerList.appendChild(playerCard);
+}
+
+/* deletes a player from the server and removes them from the local UI */
+async function deletePlayer(playerId) {
+    if (!confirm("Remove this player from the team?")) return;
+
+    const token = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
+
+    try {
+        const res = await fetch(`/Team/DeletePlayer/${playerId}`, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        });
+
+        if (!res.ok) throw new Error();
+
+        for (const [sid, p] of Object.entries(slotAssignments)) {
+            if (p.PlayerId === playerId) delete slotAssignments[sid];
+        }
+        for (const [i, p] of Object.entries(subAssignments)) {
+            if (p.PlayerId === playerId) delete subAssignments[i];
+        }
+
+        const team = teams[currentTeamIndex];
+        team.Players = (team.Players || []).filter(p => p.PlayerId !== playerId);
+
+        renderSlots();
+        renderPlayers();
+        renderSubs();
+        showToast("Player removed.");
+    } catch {
+        showToast("Failed to remove player.");
+    }
 }
 function addPlayer(teamId) {
 

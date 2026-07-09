@@ -56,6 +56,7 @@
     <header>
         <h1> Team Builder</h1>
     </header>
+    <form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
     <!-- top control bar-->
     <div class="top-bar">
         <label for="formationSelect">Formation</label>
@@ -71,7 +72,7 @@
         <button class="btn btn-sm btn-danger" onclick="openDeleteTeamModal()">Delete Team</button>
         <button class="save-btn" onclick="saveLineup()">Save Lineup</button>
     </div>
-
+    <form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
     <div class="main-layout">
         <!--container for soccer field-->
         <div class="pitch-wrapper">
@@ -103,6 +104,13 @@
                 <h2>Teams</h2>
                 <div class="team-tabs" id="teamTabs"></div>
             </div>
+
+            <!-- inline add player row -->
+            <div class="add-player-row d-flex gap-1 mb-2">
+                <input type="text" id="newPlayerName" class="form-control form-control-sm" placeholder="Player Name" />
+                <input type="text" id="newPlayerPosition" class="form-control form-control-sm" placeholder="Position" />
+                <button type="button" class="btn btn-success btn-sm" onclick="submitAddPlayer()">+</button>
+            </div>
             <!--js fills with players from db-->
             <div class="player-list" id="playerList"></div>
             <div class="subs-header">
@@ -111,9 +119,6 @@
             <div class="subs-list" id="subsList"></div>
         </div>
     </div>
-
-    <div class="toast" id="toast"></div>
-
     
     <!-- Edit team modal-->
 

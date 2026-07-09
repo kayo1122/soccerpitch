@@ -125,7 +125,26 @@ select {
     height: calc(100vh - 115px);
     overflow: hidden;
 }
+/* add and delete player*/
+.player-card {
+    position: relative;
+}
 
+.player-remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 0.8rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+    .player-remove-btn:hover {
+        color: #ff6b6b;
+    }
 /* PITCH */
 .pitch-wrapper {
     flex: 1;
