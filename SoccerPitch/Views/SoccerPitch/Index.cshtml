@@ -66,7 +66,7 @@
             <option value="3-5-2">3-5-2</option>
         </select>
         <!--buttons in topbar-->
-        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#createTeamModal">+ Add Team</button>
+        <a type="button" class="btn btn-sm btn-success" asp-controller="Team" asp-action="Create">+ Add Team</a>
         <button class="edit-team" onclick="openEditTeamModal()">Edit Team</button>
         <button class="btn btn-sm btn-danger" onclick="openDeleteTeamModal()">Delete Team</button>
         <button class="save-btn" onclick="saveLineup()">Save Lineup</button>
@@ -114,67 +114,7 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- create team modal -->
-    <div class="modal fade" id="createTeamModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!--sends new team info to the teams controller-->
-                <form method="post" asp-controller="Teams" asp-action="Create">
-                    <!-- prevents fake form submission -->
-                    @Html.AntiForgeryToken()
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add Team</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="mb-3">
-                            <!-- user enters team name here -->
-                            <label class="form-label">Team Name</label>
-                            <input type="text"
-                                   class="form-control"
-                                   name="TeamName"
-                                   required
-                                   maxlength="100" />
-                        </div>
-                        <hr>
-                        <h5 class="mb-3">Player</h5>
-                        <!-- Player information is stored inside the Players collection -->
-                        <div id="createPlayerRows">
-                            <div id="createPlayerRows">                   
-                                <div class="row g-2 mb-2 player-row">
-                                    <div class="col-6">
-                                        <input type="text"
-                                               class="form-control"
-                                               name="Players[0].PlayerName"
-                                               placeholder="Player Name" />
-                                    </div>
-
-                                    <div class="col-6">
-                                        <input type="text"
-                                               class="form-control"
-                                               name="Players[0].PreferredPosition"
-                                               placeholder="Position" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="button"
-                                    class="btn btn-success mt-2"
-                                    onclick="addPlayerRow()">
-                                + Add Player
-                            </button>
-                        </div>
-
-                    </div>
-                </form>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                
-            </div>
-        </div>
-    </div>
+    
     <!-- Edit team modal-->
 
     @foreach (var team in Model ?? new List<SoccerPitch.Models.Team>())
@@ -184,7 +124,7 @@
         <div class="modal fade" id="editTeamModal-@team.TeamId" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" asp-controller="Teams" asp-action="Edit" asp-route-id="@team.TeamId">
+                    <form method="post" asp-controller="SoccerPitch" asp-action="Edit" asp-route-id="@team.TeamId">
                         @Html.AntiForgeryToken()
                         <div class="modal-header">
                             <h5 class="modal-title">Edit @team.TeamName</h5>
