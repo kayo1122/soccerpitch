@@ -1,14 +1,12 @@
-/* =========================
+/*
    GLOBAL PAGE LAYOUT
-========================= */
+ */
 
 html,
 body {
     min-height: 100%;
     margin: 0;
 }
-
-
 .site-body {
     min-height: 100vh;
     display: flex;
@@ -20,18 +18,16 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-
 /* Main content pushes footer down */
-
 .site-main {
     flex: 1;
     width: 100%;
 }
 
 
-/* =========================
+/* 
    FOOTER
-========================= */
+ */
 
 .footer {
     width: 100%;
@@ -41,29 +37,23 @@ body {
     color: white;
     flex-shrink: 0;
 }
-
-
     .footer p {
         margin: 0;
         color: white;
     }
 
-
     .footer a {
         color: white;
         text-decoration: none;
     }
-
-
         .footer a:hover {
             color: #2ecc71;
         }
 
 
-
-/* =========================
+/* 
    NAVBAR
-========================= */
+*/
 
 .navbar,
 header nav {
@@ -86,17 +76,15 @@ header nav {
 
 
 
-/* =========================
+/*
    HOMEPAGE
-========================= */
+ */
 
 
 .welcome-section {
     position: relative;
     padding: 80px 0;
 }
-
-
 .glass-card {
     max-width: 800px;
     margin: 0 auto;
@@ -109,29 +97,22 @@ header nav {
     box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
 
-
-
 .welcome-title {
     font-family: "Carter One", system-ui;
     font-size: 3.5rem;
     color: white;
 }
 
-
-
 .welcome-lead {
     font-size: 1.25rem;
     color: #cbd5e1;
 }
-
-
 
 .button-group {
     display: flex;
     justify-content: center;
     gap: 15px;
 }
-
 
     .button-group .btn-outline-primary {
         border-color: white;

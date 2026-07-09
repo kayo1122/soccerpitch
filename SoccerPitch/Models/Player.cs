@@ -34,6 +34,7 @@ namespace SoccerPitch.Models
 
         // Assists typically incremented by user
         [ValidateNever]
+        [JsonIgnore]
         public int Assists { get; set; } = 0;
 
        

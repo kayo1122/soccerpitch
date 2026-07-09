@@ -52,6 +52,7 @@ const formations = {
    slotAssignments - stores which player is assigned to each position
    draggedPlayer - stores the player currently being dragged during drag-and-drop
 */
+
 let currentFormation = "4-3-3";
 let currentTeamIndex = 0;
 let slotAssignments = {};
@@ -125,6 +126,24 @@ function renderPlayers() {
                         </div>`;
     }).join('');
 }
+/* js for modal buttons */
+function openEditTeamModal() {
+    const team = teams[currentTeamIndex];
+    if (!team) {
+        showToast("No team selected.");
+        return;
+    }
+    new bootstrap.Modal(document.getElementById('editTeamModal-' + team.TeamId)).show();
+}
+
+function openDeleteTeamModal() {
+    const team = teams[currentTeamIndex];
+    if (!team) {
+        showToast("No team selected.");
+        return;
+    }
+    new bootstrap.Modal(document.getElementById('deleteTeamModal-' + team.TeamId)).show();
+}
 /* changes formation and clears all player assignments */
 function setFormation(f) {
     currentFormation = f;
@@ -137,6 +156,72 @@ function setFormation(f) {
 /*allows team to be edited */
 function editTeam(teamId) {
     window.location.href = `/SoccerPitch/Edit/${teamId}`;
+}
+let playerCount = 1;
+
+/*adds new player row in add team button */
+function addPlayerRow() {
+    let container = document.getElementById("createPlayerRows");
+    let playerHTML = `
+        <div class="row g-2 mb-2 player-row">
+            <div class="col-6">
+                <input type="text"
+                       class="form-control"
+                       name="Players[${playerCount}].PlayerName"
+                       placeholder="Player Name" />
+            </div>
+            <div class="col-6">
+                <input type="text"
+                       class="form-control"
+                       name="Players[${playerCount}].PreferredPosition"
+                       placeholder="Position" />
+            </div>
+        </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", playerHTML);
+    playerCount++;
+
+}
+function addPlayer(teamId) {
+
+    let container = document.getElementById("newPlayers-" + teamId);
+    let index = container.children.length;
+    let playerHTML = `
+        <div class="row g-2 mb-2 player-row">
+
+            <div class="col-6">
+                <input type="text"
+                       class="form-control"
+                       name="Players[${index}].PlayerName"
+                       placeholder="Player Name"
+                       maxlength="100"
+                       required />
+            </div>
+            <div class="col-6">
+                <input type="text"
+                       class="form-control"
+                       name="Players[${index}].PreferredPosition"
+                       placeholder="Position"
+                       maxlength="50"
+                       required />
+            </div>
+            <input type="hidden"
+                   name="Players[${index}].TeamId"
+                   value="${teamId}" />
+            <input type="hidden"
+                   name="Players[${index}].OverallRating"
+                   value="0" />
+            <input type="hidden"
+                   name="Players[${index}].Goals"
+                   value="0" />
+            <input type="hidden"
+                   name="Players[${index}].Assists"
+                   value="0" />
+        </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", playerHTML);
 }
 /* draws all position slots on the pitch based on selected formation */
 function renderSlots() {
@@ -328,4 +413,5 @@ function init() {
     renderSlots();
     renderSubs();
 }
+
 init();
