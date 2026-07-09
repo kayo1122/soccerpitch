@@ -12,8 +12,8 @@ using SoccerPitch.Data;
 namespace SoccerPitch.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260707193859_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260709151804_CreateSoccerTables")]
+    partial class CreateSoccerTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,21 +223,6 @@ namespace SoccerPitch.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PlayerTeam", b =>
-                {
-                    b.Property<int>("PlayersPlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayersPlayerId", "TeamId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("PlayerTeam");
-                });
-
             modelBuilder.Entity("SoccerPitch.Models.Player", b =>
                 {
                     b.Property<int>("PlayerId")
@@ -271,12 +256,9 @@ namespace SoccerPitch.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TeamName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("PlayerId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Players");
                 });
@@ -387,19 +369,20 @@ namespace SoccerPitch.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlayerTeam", b =>
+            modelBuilder.Entity("SoccerPitch.Models.Player", b =>
                 {
-                    b.HasOne("SoccerPitch.Models.Player", null)
-                        .WithMany()
-                        .HasForeignKey("PlayersPlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoccerPitch.Models.Team", null)
-                        .WithMany()
+                    b.HasOne("SoccerPitch.Models.Team", "Team")
+                        .WithMany("Players")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("SoccerPitch.Models.Team", b =>
+                {
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
