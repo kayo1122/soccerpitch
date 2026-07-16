@@ -438,7 +438,8 @@ select {
             font-size: 0.85rem;
         }
 /*MODALS*/
-/* dark background behind modal */
+/* transparent background behind modal */
+/*MODALS*/
 .modal-content {
     background: #35220E;
     color: white;
@@ -446,8 +447,7 @@ select {
     border-radius: 12px;
     box-shadow: 0 0 25px rgba(0,0,0,.6);
 }
-
-/* header */
+/*header*/
 .modal-header {
     background: #6A4A0B;
     border-bottom: 2px solid white;
@@ -459,16 +459,14 @@ select {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
-/* body */
+/*body*/
 .modal-body {
     background: #35220E;
     color: white;
 }
-
-/* footer */
+/*footer*/
 .modal-footer {
-    background: #35220E;
+    background: #35220E !important;
     border-top: 2px solid #6A4A0B;
 }
 
@@ -483,7 +481,7 @@ select {
 /* inputs */
 .modal .form-control {
     background: #6A4A0B;
-    color: white;
+    color:#35220E;
     border: 2px solid white;
 }
 
@@ -528,33 +526,13 @@ select {
 .player-row {
     margin-bottom: 10px;
 }
-/* remove modal white areas */
-.modal,
-.modal-dialog,
-.modal-content,
-.modal-body,
-.modal-footer {
-    background: #35220E !important;
-    color: white !important;
-}
-
-/* Remove Bootstrap default white footer spacing */
-.modal-footer {
-    border-top: 2px solid #6A4A0B !important;
-}
-
-    /* Make sure buttons area matches */
-    .modal-footer > * {
-        background-color: transparent;
-    }
-
 /* CREATE / EDIT TEAM PAGES */
 
 .team-form-container {
     width: 650px;
     margin: 50px auto;
     padding: 30px;
-    background: rgba(53, 34, 14, 0.95);
+    background: #35220E;
     border: 2px solid #6A4A0B;
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0,0,0,.6);
