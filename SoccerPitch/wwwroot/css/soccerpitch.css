@@ -22,7 +22,11 @@ header {
         letter-spacing: 1px;
         text-transform: uppercase;
     }
-
+html,
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
 body {
     background-image: url("../images/wcbackground.jpg");
     background-size: cover;
