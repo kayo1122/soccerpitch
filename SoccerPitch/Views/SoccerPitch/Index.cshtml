@@ -74,6 +74,8 @@
     </div>
     <form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
     <div class="main-layout">
+        <!--pitch and sub wrapper to target both with css elements-->
+      <div class="pitch-and-subs"> 
         <!--container for soccer field-->
         <div class="pitch-wrapper">
             <div class="pitch" id="pitch">
@@ -97,6 +99,9 @@
                 </svg>
             </div>
         </div>
+        <!-- substitutes bench -->
+        <div class="subs-bench" id="subsBench"></div>
+      </div>  
         <!-- teams and players sidebar-->
         <div class="sidebar">
             <div class="sidebar-header">
@@ -113,10 +118,6 @@
             </div>
             <!--js fills with players from db-->
             <div class="player-list" id="playerList"></div>
-            <div class="subs-header">
-                <h2>Substitutes</h2>
-            </div>
-            <div class="subs-list" id="subsList"></div>
         </div>
     </div>
     
@@ -162,6 +163,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+    //I'm passing my team data from the C# model into JavaScript by converting it to JSON, and I turned off the automatic camelCase renaming so the property names match what my JS code expects.
     window.teamsData = @Html.Raw(
                            System.Text.Json.JsonSerializer.Serialize(
                                Model ?? new List<SoccerPitch.Models.Team>(),

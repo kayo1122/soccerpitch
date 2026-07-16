@@ -46,6 +46,15 @@ const formations = {
         { id: "st2", label: "ST", top: "20%", left: "59%" },
     ]
 };
+const subSlots = [
+    { top: "94%", left: "10%" },
+    { top: "94%", left: "24%" },
+    { top: "94%", left: "38%" },
+    { top: "94%", left: "52%" },
+    { top: "94%", left: "66%" },
+    { top: "94%", left: "80%" },
+    { top: "94%", left: "94%" },
+];
 /* Tracks the current application state.
    currentFormation - currently selected formation (defaults to 4-3-3)
    currentTeamIndex - index of the selected team tab
@@ -450,31 +459,28 @@ const MAX_SUBS = 7;
 let subAssignments = {};
 /* draws the bench and displays assigned players */
 function renderSubs() {
-    const list = document.getElementById("subsList");
-   
-    list.innerHTML = Array.from({ length: MAX_SUBS }, (_, i) => {
+    const bench = document.getElementById("subsBench");
+    bench.innerHTML = "";
+
+    for (let i = 0; i < MAX_SUBS; i++) {
         const player = subAssignments[i];
-        return `
-                        <div class="sub-slot ${player ? 'filled' : ''}"
-                             ondragover="onSubDragOver(event)"
-                             ondragleave="onSubDragLeave(event)"
-                             ondrop="onSubDrop(event, ${i})"
-                             onclick="${player ? `removeFromSub(${i})` : ''}">
-                            <span class="sub-number">${i + 12}</span>
-                            ${player
-                ? `<div class="player-avatar" style="width:28px;height:28px;font-size:0.65rem;background:#2ecc71;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#0f1923;">
-                                        ${player.PlayerName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
-                                   </div>
-                                   <div class="player-info">
-                                       <div class="name" style="font-size:0.78rem;">${player.PlayerName}</div>
-                                       <div class="pos">${player.PreferredPosition}</div>
-                                   </div>
-                                   <span style="font-size:0.65rem;color:#e74c3c;cursor:pointer;">✕</span>`
-                : `<span class="sub-empty-label">Drop player here</span>`
-            }
-                        </div>`;
-    }).join('');
+        const div = document.createElement('div');
+        div.className = `sub-slot ${player ? 'filled' : ''}`;
+        div.dataset.subIndex = i;
+        div.setAttribute('ondragover', 'onSubDragOver(event)');
+        div.setAttribute('ondragleave', 'onSubDragLeave(event)');
+        div.setAttribute('ondrop', `onSubDrop(event, ${i})`);
+        div.onclick = player ? () => removeFromSub(i) : null;
+
+        div.innerHTML = player
+            ? `<span class="player-name-slot">${player.PlayerName.split(' ').slice(-1)[0]}</span>
+               <span style="font-size:0.5rem;color:#2ecc71;">${player.PreferredPosition}</span>`
+            : "Sub";
+
+        bench.appendChild(div);
+    }
 }
+
 /* allows player to be dropped on sub slot */
 function onSubDragOver(e) {
     e.preventDefault();
