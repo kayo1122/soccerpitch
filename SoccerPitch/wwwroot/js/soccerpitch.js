@@ -202,6 +202,7 @@ async function submitAddPlayer() {
     const player = {
         playerName: document.getElementById("newPlayerName").value,
         preferredPosition: document.getElementById("newPlayerPosition").value,
+        overallRating: document.getElementById("newOverallRating").value,
         teamId: 1
     };
 
@@ -224,6 +225,10 @@ async function submitAddPlayer() {
         // clear inputs
         document.getElementById("newPlayerName").value = "";
         document.getElementById("newPlayerPosition").value = "";
+        document.getElementById("newOverallRating").value = "";
+
+        // close the modal after successful add
+        bootstrap.Modal.getInstance(document.getElementById('addPlayerModal')).hide();
     }
     else {
         console.log(await response.text());
