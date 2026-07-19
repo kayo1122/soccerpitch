@@ -24,15 +24,18 @@ header {
     }
 html,
 body {
+    height: 100%;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
+
 body {
+    display: flex;
+    flex-direction: column;
     background-image: url("../images/wcbackground.jpg");
     background-size: cover;
     background-position: center;
     font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
 }
 label[for="formationSelect"] {
     background: #2ecc71;
@@ -125,9 +128,8 @@ select {
         background: #27ae60;
     }
 .main-layout {
+    flex: 1;
     display: flex;
-    gap: 0;
-    height: calc(100vh - 115px);
     overflow: hidden;
 }
 /* add and delete player*/
