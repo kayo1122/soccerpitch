@@ -1,4 +1,5 @@
-﻿* {
+﻿
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -21,13 +22,20 @@ header {
         letter-spacing: 1px;
         text-transform: uppercase;
     }
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
 
 body {
+    display: flex;
+    flex-direction: column;
     background-image: url("../images/wcbackground.jpg");
     background-size: cover;
     background-position: center;
     font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
 }
 label[for="formationSelect"] {
     background: #2ecc71;
@@ -120,9 +128,8 @@ select {
         background: #27ae60;
     }
 .main-layout {
+    flex: 1;
     display: flex;
-    gap: 0;
-    height: calc(100vh - 115px);
     overflow: hidden;
 }
 /* add and delete player*/
@@ -147,14 +154,19 @@ select {
     }
 /* PITCH */
 .pitch-wrapper {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 12px;
     overflow: hidden;
 }
-
+.pitch-and-subs {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 .pitch {
     position: relative;
     width: 480px;
@@ -226,6 +238,44 @@ select {
     letter-spacing: 0.5px;
     font-weight: 600;
 }
+/*subs slots*/
+.subs-bench {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+    justify-content: center;
+    background: transparent;
+}
+
+.sub-slot {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.90);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.6);
+    cursor: default;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+    .sub-slot.drag-over {
+        border-color: #2ecc71;
+        background: rgba(46,204,113,0.2);
+        border-style: solid;
+    }
+
+    .sub-slot.filled {
+        border-style: solid;
+        border-color: #2ecc71;
+        background: #1a3d28;
+    }
 
 /* SIDEBAR */
 .sidebar {
@@ -365,78 +415,6 @@ select {
     color: #2ecc71;
 }
 
-/* SUBS */
-.subs-header {
-    padding: 12px 16px;
-    border-top: 2px solid white;
-    border-bottom: 1px solid white;
-}
-
-    .subs-header h2 {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: white;
-        margin: 0;
-    }
-
-.subs-list {
-    overflow-y: auto;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    max-height: 220px;
-    background: #6A4A0B;
-}
-
-    .subs-list::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .subs-list::-webkit-scrollbar-track {
-        background: #35220E;
-    }
-
-    .subs-list::-webkit-scrollbar-thumb {
-        background: #2ecc71;
-        border-radius: 2px;
-    }
-
-.sub-slot {
-    background: #35220E;
-    border: 1px dashed #2a3d50;
-    border-radius: 6px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 52px;
-    transition: border-color 0.15s, background 0.15s;
-}
-
-.sub-slot.drag-over {
-        border-color: #2ecc71;
-        background: rgba(46,204,113,0.2);
-    }
-.sub-slot.filled {
-        border-style: solid;
-        border-color: #2ecc71;
-        background: #35220E;
-    }
-.sub-number {
-            font-size: 0.7rem;
-            color: #2ecc71;
-            font-weight: 700;
-            width: 18px;
-            flex-shrink: 0;
-        }
-
-.sub-empty-label {
-            font-size: 0.75rem;
-            color: #8fa89a;
-        }
-
 .toast {
             position: fixed;
             bottom: 24px;
@@ -466,7 +444,8 @@ select {
             font-size: 0.85rem;
         }
 /*MODALS*/
-/* dark background behind modal */
+/* transparent background behind modal */
+/*MODALS*/
 .modal-content {
     background: #35220E;
     color: white;
@@ -474,8 +453,7 @@ select {
     border-radius: 12px;
     box-shadow: 0 0 25px rgba(0,0,0,.6);
 }
-
-/* header */
+/*header*/
 .modal-header {
     background: #6A4A0B;
     border-bottom: 2px solid white;
@@ -487,16 +465,14 @@ select {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
-/* body */
+/*body*/
 .modal-body {
     background: #35220E;
     color: white;
 }
-
-/* footer */
+/*footer*/
 .modal-footer {
-    background: #35220E;
+    background: #35220E !important;
     border-top: 2px solid #6A4A0B;
 }
 
@@ -511,7 +487,7 @@ select {
 /* inputs */
 .modal .form-control {
     background: #6A4A0B;
-    color: white;
+    color:#35220E;
     border: 2px solid white;
 }
 
@@ -556,33 +532,13 @@ select {
 .player-row {
     margin-bottom: 10px;
 }
-/* remove modal white areas */
-.modal,
-.modal-dialog,
-.modal-content,
-.modal-body,
-.modal-footer {
-    background: #35220E !important;
-    color: white !important;
-}
-
-/* Remove Bootstrap default white footer spacing */
-.modal-footer {
-    border-top: 2px solid #6A4A0B !important;
-}
-
-    /* Make sure buttons area matches */
-    .modal-footer > * {
-        background-color: transparent;
-    }
-
 /* CREATE / EDIT TEAM PAGES */
 
 .team-form-container {
     width: 650px;
     margin: 50px auto;
     padding: 30px;
-    background: rgba(53, 34, 14, 0.95);
+    background: #35220E;
     border: 2px solid #6A4A0B;
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0,0,0,.6);
