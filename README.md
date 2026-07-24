@@ -1,6 +1,10 @@
 · MD
 SoccerPitch
 
+https://kayo1122-001-site1.ltempurl.com/
+Initial Login Username: 11320639 
+Password: 60-dayfreetrial
+
 SoccerPitch is an ASP.NET Core MVC web app for building soccer team lineups — create teams, manage rosters, and arrange players on a pitch using a drag-and-drop interface.
 
 Features
