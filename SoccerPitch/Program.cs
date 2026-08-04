@@ -13,6 +13,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews(); // 👈 was missing
 builder.Services.AddAuthorization();
+builder.Services.AddAuthentication()
+    .AddFacebook(options =>
+    {
+        options.AppId =
+            builder.Configuration["Authentication:Facebook:AppId"];
+
+        options.AppSecret =
+            builder.Configuration["Authentication:Facebook:AppSecret"];
+
+        options.CallbackPath = "/signin-facebook";
+    });
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -37,6 +48,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
