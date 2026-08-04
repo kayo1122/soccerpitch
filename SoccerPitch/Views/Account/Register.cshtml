@@ -30,7 +30,18 @@
                     <div class="button-group d-grid gap-2">
                         <button class="btn btn-outline-primary btn-lg glass-btn">Register</button>
                     </div>
+                    <div class="mt-3 text-center">
+                        <p class="glass-text">or</p>
 
+                        <form method="post" asp-action="ExternalLogin" asp-controller="Account">
+                            <input type="hidden" name="provider" value="Facebook" />
+                            <input type="hidden" name="action" value="register" />
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                Register with Facebook
+                            </button>
+                        </form>
+                    </div>
                     <p class="mt-4 text-center glass-text">
                         Already have an account? <a href="/Account/Login" class="glass-link">Login here</a>
                     </p>
