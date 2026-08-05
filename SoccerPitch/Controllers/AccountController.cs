@@ -140,7 +140,7 @@ public class AccountController : Controller
                 Email = email,
                 Username = name ?? email.Split('@')[0],
                 Password = null,
-                Provider = "Facebook",
+                Provider = result.Properties.Items[".AuthScheme"],
                 ProviderId = providerId
             };
 

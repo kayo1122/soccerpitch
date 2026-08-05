@@ -23,6 +23,16 @@ builder.Services.AddAuthentication()
             builder.Configuration["Authentication:Facebook:AppSecret"];
 
         options.CallbackPath = "/signin-facebook";
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId =
+            builder.Configuration["Authentication:Google:ClientId"];
+
+        options.ClientSecret =
+            builder.Configuration["Authentication:Google:ClientSecret"];
+
+        options.CallbackPath = "/signin-google";
     });
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

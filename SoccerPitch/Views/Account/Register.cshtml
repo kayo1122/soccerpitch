@@ -41,6 +41,14 @@
                                 Register with Facebook
                             </button>
                         </form>
+                        <form method="post" asp-action="ExternalLogin" asp-controller="Account">
+                            <input type="hidden" name="provider" value="Google" />
+                            <input type="hidden" name="action" value="register" />
+
+                            <button type="submit" class="btn btn-danger btn-lg w-100">
+                                Register with Google
+                            </button>
+                        </form>
                     </div>
                     <p class="mt-4 text-center glass-text">
                         Already have an account? <a href="/Account/Login" class="glass-link">Login here</a>

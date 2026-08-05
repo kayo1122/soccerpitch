@@ -39,6 +39,14 @@
                                 Login with Facebook
                             </button>
                         </form>
+                        <form method="post" asp-action="ExternalLogin" asp-controller="Account">
+                            <input type="hidden" name="provider" value="Google" />
+                            <input type="hidden" name="action" value="login" />
+
+                            <button type="submit" class="btn btn-danger btn-lg w-100">
+                                Login with Google
+                            </button>
+                        </form>
                     </div>
 
                     <p class="mt-4 text-center glass-text">
