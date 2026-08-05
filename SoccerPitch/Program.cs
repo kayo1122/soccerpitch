@@ -13,7 +13,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews(); // 👈 was missing
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication()
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = "Cookies";
+        options.DefaultChallengeScheme = "Google";
+    })
+    .AddCookie("Cookies")
+    .AddCookie("Identity.External")
     .AddFacebook(options =>
     {
         options.AppId =

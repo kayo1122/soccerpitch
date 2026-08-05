@@ -106,7 +106,9 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> ExternalLoginCallback(string action, string provider)
     {
-        var result = await HttpContext.AuthenticateAsync(provider);
+        var result = await HttpContext.AuthenticateAsync(
+            "Identity.External"
+        );
 
         if (!result.Succeeded)
         {
@@ -119,18 +121,15 @@ public class AccountController : Controller
 
         if (email == null)
         {
-            ModelState.AddModelError("", "No email was provided by the provider.");
             return RedirectToAction("Login");
         }
 
         var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-        // REGISTER FLOW
         if (action == "register")
         {
             if (user != null)
             {
-                ModelState.AddModelError("", "Account already exists. Please login instead.");
                 return RedirectToAction("Login");
             }
 
@@ -139,27 +138,24 @@ public class AccountController : Controller
                 Email = email,
                 Username = name ?? email.Split('@')[0],
                 Password = string.Empty,
-                Provider = result.Properties.Items[".AuthScheme"],
+                Provider = provider,
                 ProviderId = providerId
             };
 
             _context.Users.Add(user);
             _context.SaveChanges();
         }
-
-        // LOGIN FLOW
         else
         {
             if (user == null)
             {
-                ModelState.AddModelError("", "Account does not exist. Please register first.");
                 return RedirectToAction("Register");
             }
         }
 
         HttpContext.Session.SetString(
             "LoggedInUser",
-            user.Username!
+            user.Username
         );
 
         return RedirectToAction("Index", "SoccerPitch");
