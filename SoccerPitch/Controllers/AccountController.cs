@@ -93,7 +93,7 @@ public class AccountController : Controller
         var redirectUrl = Url.Action(
             "ExternalLoginCallback",
             "Account",
-            new { action = action }
+            new { action = action, provider = provider }
         );
 
         var properties = new AuthenticationProperties
@@ -104,10 +104,9 @@ public class AccountController : Controller
         return Challenge(properties, provider);
     }
     [HttpGet]
-    [HttpGet]
-    public async Task<IActionResult> ExternalLoginCallback(string action)
+    public async Task<IActionResult> ExternalLoginCallback(string action, string provider)
     {
-        var result = await HttpContext.AuthenticateAsync();
+        var result = await HttpContext.AuthenticateAsync(provider);
 
         if (!result.Succeeded)
         {
@@ -139,7 +138,7 @@ public class AccountController : Controller
             {
                 Email = email,
                 Username = name ?? email.Split('@')[0],
-                Password = null,
+                Password = string.Empty,
                 Provider = result.Properties.Items[".AuthScheme"],
                 ProviderId = providerId
             };
