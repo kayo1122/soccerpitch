@@ -124,7 +124,6 @@ public class AccountController : Controller
 
         var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-        // If user does not exist, create it
         if (user == null)
         {
             user = new User
