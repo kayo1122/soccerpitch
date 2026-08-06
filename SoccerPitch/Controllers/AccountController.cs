@@ -106,7 +106,7 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> ExternalLoginCallback(string action, string provider)
     {
-        var result = await HttpContext.AuthenticateAsync("Identity.External");
+        var result = await HttpContext.AuthenticateAsync();
 
         if (!result.Succeeded)
         {

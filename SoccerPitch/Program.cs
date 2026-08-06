@@ -29,6 +29,8 @@ builder.Services.AddAuthentication(options =>
             builder.Configuration["Authentication:Facebook:AppSecret"];
 
         options.CallbackPath = "/signin-facebook";
+
+        options.SignInScheme = "Identity.External";
     })
     .AddGoogle(options =>
     {
@@ -39,6 +41,8 @@ builder.Services.AddAuthentication(options =>
             builder.Configuration["Authentication:Google:ClientSecret"];
 
         options.CallbackPath = "/signin-google";
+
+        options.SignInScheme = "Identity.External";
     });
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
