@@ -106,9 +106,7 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> ExternalLoginCallback(string action, string provider)
     {
-        var result = await HttpContext.AuthenticateAsync(
-            "Identity.External"
-        );
+        var result = await HttpContext.AuthenticateAsync("Identity.External");
 
         if (!result.Succeeded)
         {
@@ -126,13 +124,9 @@ public class AccountController : Controller
 
         var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-        if (action == "register")
+        // If user does not exist, create it
+        if (user == null)
         {
-            if (user != null)
-            {
-                return RedirectToAction("Login");
-            }
-
             user = new User
             {
                 Email = email,
@@ -145,18 +139,13 @@ public class AccountController : Controller
             _context.Users.Add(user);
             _context.SaveChanges();
         }
-        else
-        {
-            if (user == null)
-            {
-                return RedirectToAction("Register");
-            }
-        }
 
         HttpContext.Session.SetString(
             "LoggedInUser",
             user.Username
         );
+
+        await HttpContext.SignOutAsync("Identity.External");
 
         return RedirectToAction("Index", "SoccerPitch");
     }
